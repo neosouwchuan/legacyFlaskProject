@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Flask choices</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/style.css') }}">
+    <style>
+      
+      body{
+        font-family: sans-serif;
+        text-align: center;
+        margin-top:0%;
+      }
+      table {
+        margin-right: auto;
+        margin-left: auto;
+        border: solid 2px black;
+        border-radius:6px;
+        border-collapse: collapse;
+        text-align:center;
+      }
+      td {
+        padding: 10px;
+        border : solid 1px black;
+      }
+      img {
+        max-width: 300px;
+        max-height: 300px;
+      }
+      a {
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+    <h4><a href = "{{url_for('home')}}">Home</a></h4>
+    
+    <h1>Hello, {{personName}}</h1>
+    <table>
+      <tr><td><b>Category</b></td>
+        <td><b>Image</b></td>
+        <td><b>Description</b></td>
+        <td><b>Added On</b></td>
+        <td><b>Modify</b></td>
+      </tr>      {% for result in results %}
+      <tr>
+        <td>{{ result[2] }}</td>
+        <br>
+          {% if result[4] == "blank" %}
+          <td></td>
+          {% else %}
+          <td><img src="{{ url_for('get_file', filename=result[4]) }}"alt="{{ result[4] }}"></td>
+          {% endif %}
+      
+        <td>{{result[3]}}</td>
+        <td>{{result[5]}}</td>
+
+      </tr>
+      {% endfor %}
+      <form method="post" enctype="multipart/form-data">
+        <tr>
+          <td>
+            <input type = "text" name ="category">
+          </td>
+          <td>
+            <input name="photo" type="file">
+          </td>
+          <td>
+            <input type="text" name = "description" >
+          </td>
+          <td>Right now</td>
+          <td><input type = "submit" >
+          </td>
+        </tr>
+      </form>
+    </table>
+  </body>
+</html>
